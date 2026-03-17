@@ -1,4 +1,4 @@
-# CampusCart - Student Marketplace Frontend
+# CampusCart - Student Marketplace
 
 A modern, clean React-based OLX-type marketplace application for students to buy and sell items with peer-to-peer messaging.
 
