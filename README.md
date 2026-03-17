@@ -209,16 +209,3 @@ const getProducts = async () => {
 ### Issue: CORS errors
 - Ensure CORS headers are configured in `.htaccess`
 - Verify backend API allows cross-origin requests
-
-## 📄 License
-
-This project is licensed under the MIT License - feel free to use it for your campus marketplace.
-
----
-
-**Happy Selling and Buying! 🎉**
-
-**Last Updated:** March 2026  
-**Platform:** Windows/WAMP Compatible  
-**Status:** Production Ready
-
