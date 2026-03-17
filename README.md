@@ -2,7 +2,7 @@
 
 A modern, clean React-based OLX-type marketplace application for students to buy and sell items with peer-to-peer messaging.
 
-**✅ Windows/WAMP Compatible** - Fully optimized for WAMP server deployment on Windows without macOS dependencies.
+**✅ Windows/WAMP Compatible** - Fully optimized for WAMP server deployment on Windows.
 
 ## 🚀 Features
 
