@@ -25,6 +25,20 @@ A modern, clean React-based OLX-type marketplace application for students to buy
 - **Windows/Apache** - WAMP stack compatible
 
 ## 📁 Project Structure
+campuscart/
+├── index.html (Frontend entry)
+├── database_setup.sql
+├── Documentation files
+├── Frontend/ (React app)
+├── api/
+│   ├── config.php (Database config)
+│   ├── login.php (Login API)
+│   ├── register.php (Register API)
+│   ├── products.php (Get products)
+│   └── reset_pass.php (Password utility)
+├── assets/ (Built CSS/JS)
+└── images/
+
 
 ```
 ```
