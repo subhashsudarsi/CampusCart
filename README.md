@@ -229,7 +229,3 @@ CampusCart uses five MongoDB collections:
 - [ ] Admin moderation controls (remove listings, suspend users)
 
 ---
-
-## 📄 License
-
-This project is for educational purposes. See [LICENSE](LICENSE) for details.
