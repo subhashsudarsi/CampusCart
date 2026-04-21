@@ -1,223 +1,235 @@
-# CampusCart - Student Marketplace
+# 🛒 CampusCart
 
-A modern, clean React-based OLX-type marketplace application for students to buy and sell items with peer-to-peer messaging.
+A peer-to-peer marketplace web app built exclusively for college students — buy and sell second-hand goods with fellow students, no shipping required.
 
-**✅ Windows/WAMP Compatible** - Fully optimized for WAMP server deployment on Windows.
+![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?style=flat&logo=node.js&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react&logoColor=black)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=flat&logo=mongodb&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-3-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
 
-## 🚀 Features
+---
 
-- **Product Listings** - Browse items posted by fellow students with search and filtering
-- **Product Details** - View detailed product information, seller ratings, and specifications
-- **Direct Messaging** - Chat directly with buyers/sellers without exposing contact details initially
-- **Post Listings** - Easily create and post new items for sale
-- **User Profiles** - Manage your profile, view active listings, and track seller ratings
-- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile devices
-- **Clean UI** - Modern interface built with Tailwind CSS
-- **WAMP Ready** - Production-ready for Apache deployment with 1-year asset caching
+## 📸 Overview
 
-## 🛠️ Tech Stack
+CampusCart connects students within a campus community to list, browse, and purchase items like textbooks, electronics, furniture, sports gear, and instruments — all arranged as direct on-campus meetups, no third-party shipping needed.
 
-- **React 18** - UI framework
-- **Vite** - Fast build tool and dev server
-- **React Router** - Client-side routing (SPA)
-- **Tailwind CSS** - Utility-first CSS framework
-- **Axios** - HTTP client ready for API integration
-- **Windows/Apache** - WAMP stack compatible
+### Key Features
+
+- 🔐 **Student & Admin accounts** — role-based access with bcrypt-hashed passwords
+- 📦 **Product listings** — post items with title, description, price, category, location, and image
+- 🔍 **Search & filter** — real-time filtering by keyword, category, and price range
+- 💬 **In-app messaging** — buyer-seller chat threads tied to specific listings
+- 📊 **Admin dashboard** — marketplace stats, user list, and per-user listing views
+- 🌱 **Auto-seeded demo data** — demo users, products, and conversations on first startup
+
+---
+
+## 🏗️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React 18, Vite 5, Tailwind CSS 3, React Router 6 |
+| Backend | Node.js 18+, Express 4 |
+| Database | MongoDB Atlas (Mongoose ODM) |
+| Auth | bcryptjs (password hashing) |
+| Config | dotenv |
+
+---
 
 ## 📁 Project Structure
+
 ```
 campuscart/
-├── index.html (Frontend entry)
-├── database_setup.sql
-├── Documentation files
-├── Frontend/ (React app)
-├── api/
-│   ├── config.php (Database config)
-│   ├── login.php (Login API)
-│   ├── register.php (Register API)
-│   ├── products.php (Get products)
-│   └── reset_pass.php (Password utility)
-├── assets/ (Built CSS/JS)
-└── images/
+├── api/                  # Backend — Express REST API
+│   ├── server.js         # Main server file (routes, models, logic)
+│   ├── package.json
+│   └── .env              # Backend environment variables (not committed)
+│
+├── Frontend/             # React SPA
+│   ├── src/
+│   │   ├── components/   # Navbar, Footer, ProductCard, SearchBar, etc.
+│   │   ├── pages/        # Home, Login, ProductDetail, Messaging, etc.
+│   │   └── utils/api.js  # API base URL helper
+│   ├── public/
+│   ├── dist/             # Production build output
+│   └── package.json
+│
+└── index.html            # Built frontend (static hosting root)
 ```
 
-## 🎨 Key Pages
+---
 
-### Home Page
-- Displays all available products in a grid layout
-- Search functionality with multiple filters
-- Category and price range filtering
-- Product cards with like functionality
-
-### Product Detail Page
-- Full product information with specifications
-- Seller information and ratings
-- "Text the seller" button for direct messaging
-- Safety tips for transactions
-
-### Messaging Page
-- List of active conversations
-- Real-time chat interface
-- Search conversations by seller or product
-- Online/offline status indicators
-
-### Post Listing Page
-- Form to create new product listings
-- Image upload preview
-- Category and condition selection
-- Location and contact information
-
-### Profile Page
-- User profile information
-- Active listings management
-- Seller ratings and reviews
-- Account settings and logout
-
-## ⚙️ Installation & Setup (All Systems)
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v16 or higher) - [Download](https://nodejs.org/)
-- npm or yarn
 
-### Quick Start (Development)
+- [Node.js](https://nodejs.org/) v18 or higher
+- npm
+- A [MongoDB Atlas](https://www.mongodb.com/atlas) account with a cluster
 
-1. Install dependencies:
-```powershell
-npm install
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/campuscart.git
+cd campuscart
 ```
 
-2. Start the development server:
-```powershell
+### 2. Configure the backend
+
+Copy the example env file and fill in your MongoDB credentials:
+
+```bash
+cd api
+cp .env.example .env
+```
+
+Edit `api/.env`:
+
+```env
+PORT=3001
+CORS_ORIGIN=*
+MONGO_TYPE=atlas
+MONGO_USER=your_db_username
+MONGO_PASS=your_db_password
+MONGO_HOST_URI=your-cluster.mongodb.net
+MONGO_DB_NAME=campuscart
+MONGO_AUTH_SRC=admin
+MONGO_REWRITES=true
+MONGO_W=majority
+MONGO_HEARTBEAT_MS=60000
+MONGO_COLL_CUSTOM_SEQUENCE=customSequence
+```
+
+### 3. Run the backend
+
+```bash
+# From the api/ directory
+npm install
+npm start
+```
+
+The API will be available at `http://localhost:3001/api`.  
+Health check: `http://localhost:3001/api/health`
+
+### 4. Run the frontend (development)
+
+```bash
+# From the Frontend/ directory
+cd ../Frontend
+npm install
 npm run dev
 ```
 
-3. Open your browser and navigate to:
-```
-http://localhost:5173
-```
+Open the URL shown by Vite (usually `http://localhost:5173`).
 
-## 🚀 WAMP Production Deployment
+> **Optional:** Create `Frontend/.env` to point to a non-default API:
+> ```env
+> VITE_API_BASE_URL=http://localhost:3001/api
+> ```
 
-### Prerequisites
-- WAMP Server installed - [Download](https://www.wampserver.com/)
-- Apache mod_rewrite enabled
-- .htaccess support enabled in Apache
+### 5. Build for production
 
-### Deploy to WAMP
-
-1. **Build the project:**
-```powershell
+```bash
+cd Frontend
 npm run build
 ```
 
-2. **Copy to WAMP:**
-```powershell
-# Option 1: Command line
-xcopy dist C:\wamp64\www\campuscart\ /E /Y
+The production bundle is output to `Frontend/dist`. Copy its contents to the project root to update the static files served from `index.html`.
 
-# Option 2: Manual
-# Copy contents of 'dist' folder to C:\wamp64\www\campuscart\
-```
+---
 
-3. **Access your app:**
-```
-http://localhost/campuscart
-```
+## 🔑 Demo Credentials
 
-### Complete WAMP Setup Guide
+The app auto-seeds demo users and sample listings when MongoDB collections are empty on first startup.
 
-For comprehensive WAMP deployment instructions including:
-- Virtual host configuration
-- Apache module setup
-- Database integration
-- Troubleshooting
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@campuscart.com | password123 |
+| Student | raj@student.com | password123 |
+| Student | priya@student.com | password123 |
+| Student | arjun@student.com | password123 |
 
-See: **[WAMP-DEPLOYMENT.md](WAMP-DEPLOYMENT.md)**
+> ⚠️ Change these credentials before any public deployment.
 
-## 🚢 Build for Production
+---
 
-Build for production:
-```powershell
-npm run build
-```
+## 🌐 API Reference
 
-Preview production build locally:
-```powershell
-npm run preview
-```
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/health` | Database connectivity check |
+| GET | `/api/products` | List all available products |
+| GET | `/api/products/:id` | Get a single product by ID |
+| POST | `/api/products` | Create a new listing |
+| POST | `/api/login` | Authenticate a user |
+| POST | `/api/register` | Register a new user |
+| GET | `/api/users` | List all users (admin) |
+| GET | `/api/users/count` | Get total user count |
+| GET | `/api/messages/conversations?userId=` | Get all conversations for a user |
+| POST | `/api/messages/send` | Send a message |
+| DELETE | `/api/messages/conversations/:id?userId=` | Delete a conversation |
+| POST | `/api/seed-products` | Force-insert demo products |
+| POST | `/api/reset-passwords` | Reset all passwords to `password123` |
 
-Output folder: `dist/` (Deploy this to WAMP)
+---
 
-## 🔄 Development Workflow
+## 🧭 Pages & Routing
 
-The app uses Hot Module Replacement (HMR) for instant updates during development. Changes to components are reflected immediately in the browser.
+| Route | Access | Description |
+|---|---|---|
+| `/` | Public | Homepage with product grid, search, and filters |
+| `/login` | Public | Login and registration |
+| `/product/:id` | Public | Product detail — view listing, message seller |
+| `/post-listing` | Student + Admin | Create a new listing |
+| `/messages` | Student only | Messaging inbox and conversation threads |
+| `/profile` | Authenticated | View and edit user profile |
+| `/admin` | Admin only | Dashboard with stats, users, and listings |
 
-## 📝 Component Guidelines
+---
 
-- Use functional components with React Hooks
-- Keep components focused and reusable
-- Use Tailwind CSS for styling (no CSS files needed)
-- Follow component imports in App.jsx as reference
+## 🗃️ Database Schema
 
-## 🔗 API Integration Ready
+CampusCart uses five MongoDB collections:
 
-The project is set up for backend API integration using Axios. Ready to connect with your backend services.
+- **users** — id, name, email, password (hashed), role, timestamps
+- **products** — id, title, description, price, category, sellerId, sellerName, location, image, status, timestamps
+- **conversations** — id, participantIds, productId, productTitle, lastMessageAt, timestamps
+- **messages** — id, conversationId, senderId, receiverId, text, timestamps
+- **customSequence** — key, value (atomic auto-increment counters for each collection)
 
-Example:
-```javascript
-import axios from 'axios'
+---
 
-const API_URL = 'http://localhost/api' // or your WAMP-based API
+## 🛠️ Troubleshooting
 
-const getProducts = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/products`)
-    return response.data
-  } catch (error) {
-    console.error('API Error:', error)
-  }
-}
-```
+**Authentication failed connecting to Atlas**
+- Verify `MONGO_USER` and `MONGO_PASS` in `api/.env`
+- Confirm the database user has `readWrite` on the configured database in Atlas
 
-## 📱 Responsive Breakpoints
+**Cannot connect to Atlas**
+- Add your server IP under Atlas → Network Access
+- Use `0.0.0.0/0` temporarily for testing (not recommended for production)
 
-- Mobile: 320px - 640px
-- Tablet: 641px - 1024px
-- Desktop: 1025px+
+**Frontend can't reach the API**
+- Confirm the backend is running on port 3001
+- Check `VITE_API_BASE_URL` in `Frontend/.env`
+- Look for CORS errors in the browser console and set `CORS_ORIGIN` accordingly
 
-## 🎯 Future Enhancements
+---
 
-- Real-time notifications with Socket.io
-- Payment integration
-- Advanced filtering options
-- User verification system
-- Listing analytics
-- Review and rating system
-- Email notifications
-- Admin dashboard
-- Analytics tracking
+## 🗺️ Roadmap
 
-## 📚 Useful Resources
+- [ ] JWT-based authentication with secure HttpOnly cookies
+- [ ] Email verification and password reset
+- [ ] Real-time messaging with WebSockets
+- [ ] Payment gateway integration (Razorpay / UPI)
+- [ ] Seller ratings and reviews
+- [ ] Direct image file upload (multipart/form-data)
+- [ ] Mobile app (React Native)
+- [ ] Admin moderation controls (remove listings, suspend users)
 
-- [WAMP Setup Guide](WAMP-DEPLOYMENT.md)
-- [React Documentation](https://react.dev/)
-- [Vite Documentation](https://vitejs.dev/)
-- [React Router](https://reactrouter.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Apache Rewrite Rules](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)
+---
 
-## 🔧 Troubleshooting
+## 📄 License
 
-### Issue: Router paths not working in WAMP
-- Ensure `.htaccess` is in the deployment directory
-- Verify `mod_rewrite` is enabled in Apache
-- Check Apache error logs: `C:\wamp64\logs\`
-
-### Issue: CSS/JS not loading
-- Clear browser cache (Ctrl+Shift+R)
-- Verify files are in correct paths
-- Check browser console for 404 errors
-
-### Issue: CORS errors
-- Ensure CORS headers are configured in `.htaccess`
-- Verify backend API allows cross-origin requests
+This project is for educational purposes. See [LICENSE](LICENSE) for details.
