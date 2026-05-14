@@ -1,0 +1,45 @@
+flowchart TB
+  %% External Entities
+  U[User Guest Student]
+  A[Admin]
+
+  %% Processes
+  P1((1.0 Auth and User Management))
+  P2((2.0 Listings and Reports))
+  P3((3.0 Messaging))
+  P4((4.0 Moderation and Dashboard))
+
+  %% Data Stores
+  D1[(D1 Users)]
+  D2[(D2 Marketplace Data)]
+  D3[(D3 Chat Data)]
+  D4[(D4 Sequences)]
+
+  %% User-facing flows
+  U -->|Signup and login| P1
+  P1 -->|Profile and session response| U
+
+  U -->|Browse listings and create reports| P2
+  P2 -->|Listing and report response| U
+
+  U -->|Conversation and message actions| P3
+  P3 -->|Thread and message response| U
+
+  %% Admin flows
+  A -->|Review requests and moderate data| P4
+  P4 -->|Approval and dashboard response| A
+
+  %% Data interactions
+  P1 <-->|read and write| D1
+  P1 <-->|next id| D4
+
+  P2 <-->|listings and reports| D2
+  P2 -->|user lookup| D1
+  P2 <-->|next id| D4
+
+  P3 <-->|conversations and messages| D3
+  P3 -->|participant lookup| D1
+  P3 <-->|next id| D4
+
+  P4 -->|manage users| D1
+  P4 -->|moderate marketplace| D2

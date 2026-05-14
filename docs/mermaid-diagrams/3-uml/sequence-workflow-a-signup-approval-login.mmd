@@ -1,0 +1,33 @@
+sequenceDiagram
+  autonumber
+  actor Student
+  actor Admin
+  participant Frontend
+  participant AuthAPI
+  participant AdminAPI
+  participant UserDB
+
+  Student->>Frontend: Submit signup request (name, email, password)
+  Frontend->>AuthAPI: POST /students/signup-request
+  AuthAPI->>UserDB: Find user by email
+  AuthAPI->>UserDB: Create or update student with status=pending
+  AuthAPI-->>Frontend: Signup submitted (pending approval)
+
+  Admin->>Frontend: Open pending requests page
+  Frontend->>AdminAPI: GET /admin/pending-student-requests?adminId
+  AdminAPI->>UserDB: Query pending student users
+  AdminAPI-->>Frontend: Pending request list
+
+  Admin->>Frontend: Approve request
+  Frontend->>AdminAPI: POST /admin/pending-student-requests/{studentId}/approve
+  AdminAPI->>UserDB: Set approvalStatus=approved, approvedAt, approvedBy
+  AdminAPI-->>Frontend: Approval success
+
+  Student->>Frontend: Login with email/password
+  Frontend->>AuthAPI: POST /login
+  AuthAPI->>UserDB: Validate credentials and approval status
+  alt Approved student/admin
+    AuthAPI-->>Frontend: Login success + public user profile
+  else Pending/rejected student
+    AuthAPI-->>Frontend: 403 with approval status message
+  end

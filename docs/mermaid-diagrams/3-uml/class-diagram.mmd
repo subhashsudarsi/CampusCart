@@ -1,0 +1,139 @@
+classDiagram
+  direction LR
+
+  class User {
+    +int id
+    +string name
+    +string email
+    +string passwordHash
+    +UserRole role
+    +ApprovalStatus approvalStatus
+    +datetime approvalRequestedAt
+    +datetime approvedAt
+    +int approvedBy
+  }
+
+  class UserRole {
+    <<enumeration>>
+    student
+    admin
+  }
+
+  class ApprovalStatus {
+    <<enumeration>>
+    pending
+    approved
+    rejected
+  }
+
+  class Product {
+    +int id
+    +string title
+    +string description
+    +number price
+    +string category
+    +int sellerId
+    +string sellerName
+    +string location
+    +string image
+    +ProductStatus status
+    +datetime createdAt
+  }
+
+  class ProductStatus {
+    <<enumeration>>
+    available
+    sold
+  }
+
+  class Conversation {
+    +int id
+    +int[2] participantIds
+    +int? productId
+    +string productTitle
+    +datetime lastMessageAt
+  }
+
+  class Message {
+    +int id
+    +int conversationId
+    +int senderId
+    +int receiverId
+    +string text
+    +datetime createdAt
+  }
+
+  class Report {
+    +int id
+    +int productId
+    +int reporterId
+    +string reporterEmail
+    +ReportReason reason
+    +string details
+    +ReportStatus status
+    +datetime createdAt
+  }
+
+  class ReportReason {
+    <<enumeration>>
+    spam
+    fraud
+    prohibited
+    misleading
+    other
+  }
+
+  class ReportStatus {
+    <<enumeration>>
+    pending
+    resolved
+  }
+
+  class SequenceCounter {
+    +string key
+    +int value
+  }
+
+  class AuthService {
+    <<service>>
+    +login(email, password)
+    +submitSignupRequest(name, email, password)
+  }
+
+  class ProductService {
+    <<service>>
+    +listAvailableProducts()
+    +getProductById(id)
+    +createProduct(payload)
+    +deleteProduct(productId, adminId)
+    +reportProduct(productId, payload)
+  }
+
+  class MessagingService {
+    <<service>>
+    +getConversations(userId)
+    +sendMessage(payload)
+    +deleteConversation(conversationId, userId)
+  }
+
+  class AdminService {
+    <<service>>
+    +getPendingStudentRequests(adminId)
+    +approveStudent(studentId, adminId)
+    +rejectStudent(studentId, adminId)
+  }
+
+  User "1" --> "0..*" Product : seller
+  User "1" --> "0..*" Report : reporter
+  Product "1" --> "0..*" Report : reportedAgainst
+  Conversation "1" o-- "0..*" Message : contains
+  User "0..*" -- "0..*" Conversation : participates
+
+  AuthService ..> User
+  ProductService ..> Product
+  ProductService ..> User
+  ProductService ..> Report
+  MessagingService ..> Conversation
+  MessagingService ..> Message
+  AdminService ..> User
+  AdminService ..> Product

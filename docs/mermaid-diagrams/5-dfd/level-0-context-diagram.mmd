@@ -1,0 +1,9 @@
+flowchart LR
+  E1[Guest / Student / Admin]
+  P0((CampusCart System))
+  E2[(MongoDB Atlas)]
+
+  E1 -->|Auth requests, listing actions, messages, moderation actions| P0
+  P0 -->|UI/API responses, dashboards, notifications| E1
+  P0 -->|Read/write user, product, conversation, message, report data| E2
+  E2 -->|Stored records and query results| P0

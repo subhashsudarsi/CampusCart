@@ -1,0 +1,46 @@
+flowchart LR
+  Guest[Guest]
+  Student[Student]
+  Admin[Admin]
+
+  subgraph CampusCart[CampusCart]
+    UC01([UC-01 Browse Listings])
+    UC02([UC-02 View Listing Details])
+    UC03([UC-03 Submit Student Signup Request])
+    UC04([UC-04 Login])
+    UC05([UC-05 Post Listing])
+    UC06([UC-06 Report Listing])
+    UC07([UC-07 View Conversations])
+    UC08([UC-08 Send Message])
+    UC09([UC-09 Delete Conversation])
+    UC10([UC-10 View Pending Requests])
+    UC11([UC-11 Approve Student Request])
+    UC12([UC-12 Reject Student Request])
+    UC13([UC-13 Delete Listing])
+    UC14([UC-14 View Admin Dashboard])
+  end
+
+  Guest --> UC01
+  Guest --> UC02
+  Guest --> UC03
+  Guest --> UC04
+
+  Student --> UC01
+  Student --> UC02
+  Student --> UC04
+  Student --> UC05
+  Student --> UC06
+  Student --> UC07
+  Student --> UC08
+  Student --> UC09
+
+  Admin --> UC04
+  Admin --> UC05
+  Admin --> UC10
+  Admin --> UC11
+  Admin --> UC12
+  Admin --> UC13
+  Admin --> UC14
+
+  UC10 -. "<<include>>" .-> UC11
+  UC10 -. "<<include>>" .-> UC12

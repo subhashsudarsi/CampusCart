@@ -1,0 +1,20 @@
+sequenceDiagram
+  autonumber
+  actor Student
+  participant Frontend
+  participant ProductAPI
+  participant UserDB
+  participant SequenceDB
+  participant ProductDB
+
+  Student->>Frontend: Fill and submit listing form
+  Frontend->>ProductAPI: POST /products (title, desc, category, price, location, sellerEmail, image)
+  ProductAPI->>ProductAPI: Validate required fields and positive price
+  ProductAPI->>UserDB: Find seller by email
+  UserDB-->>ProductAPI: Seller exists
+  ProductAPI->>SequenceDB: Get next sequence for products
+  SequenceDB-->>ProductAPI: New productId
+  ProductAPI->>ProductDB: Insert Product(status=available)
+  ProductDB-->>ProductAPI: Created
+  ProductAPI-->>Frontend: 201 listing created
+  Frontend-->>Student: Navigate to marketplace/admin dashboard

@@ -1,0 +1,3 @@
+./Frontend/dist/images/logo.webp
+./Frontend/public/images/logo.webp
+./images/logo.webp

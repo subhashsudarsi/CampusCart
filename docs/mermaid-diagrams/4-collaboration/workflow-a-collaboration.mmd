@@ -1,0 +1,26 @@
+flowchart LR
+  Student[Student]
+  Admin[Admin]
+  Frontend[Frontend]
+  AuthAPI[AuthAPI]
+  AdminAPI[AdminAPI]
+  UserDB[(UserDB)]
+
+  Student -->|1: submit signup| Frontend
+  Frontend -->|1.1: POST signup-request| AuthAPI
+  AuthAPI -->|1.1.1: create/update pending student| UserDB
+  AuthAPI -->|1.2: signup response| Frontend
+
+  Admin -->|2: view pending requests| Frontend
+  Frontend -->|2.1: GET pending requests| AdminAPI
+  AdminAPI -->|2.1.1: query pending users| UserDB
+  AdminAPI -->|2.2: pending list| Frontend
+
+  Admin -->|3: approve student| Frontend
+  Frontend -->|3.1: POST approve| AdminAPI
+  AdminAPI -->|3.1.1: set status approved| UserDB
+
+  Student -->|4: login| Frontend
+  Frontend -->|4.1: POST login| AuthAPI
+  AuthAPI -->|4.1.1: validate credentials/status| UserDB
+  AuthAPI -->|4.2: auth result| Frontend

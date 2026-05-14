@@ -1,0 +1,26 @@
+sequenceDiagram
+  autonumber
+  actor Student
+  participant Frontend
+  participant MessageAPI
+  participant ConversationDB
+  participant MessageDB
+  participant SequenceDB
+
+  Student->>Frontend: Open messages page
+  Frontend->>MessageAPI: GET /messages/conversations?userId
+  MessageAPI->>ConversationDB: Fetch conversations for participant
+  MessageAPI->>MessageDB: Fetch messages for returned conversationIds
+  MessageAPI-->>Frontend: Conversations with message history
+
+  Student->>Frontend: Send message text
+  Frontend->>MessageAPI: POST /messages/send (conversationId, senderId, receiverId, text)
+  MessageAPI->>ConversationDB: Validate conversation and participants
+  MessageAPI->>SequenceDB: Get next sequence for messages
+  MessageAPI->>MessageDB: Insert message record
+  MessageAPI->>ConversationDB: Update lastMessageAt
+  MessageAPI-->>Frontend: Message sent + updated metadata
+
+  alt conversationId not provided
+    MessageAPI->>ConversationDB: Find or create 2-party conversation
+  end

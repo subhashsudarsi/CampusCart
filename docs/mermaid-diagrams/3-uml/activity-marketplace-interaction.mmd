@@ -1,0 +1,22 @@
+flowchart TD
+  A([Start]) --> B[Open marketplace]
+  B --> C[Search and filter listings]
+  C --> D{Listing selected?}
+  D -- No --> E[Refine search criteria]
+  E --> Z([Stop])
+  D -- Yes --> F[View listing details]
+  F --> G{Contact seller?}
+  G -- Yes --> H{User logged in?}
+  H -- Yes --> I[Open conversation view]
+  I --> J[Send or continue messages]
+  H -- No --> K[Redirect to login page]
+  G -- No --> L{Report listing?}
+  J --> L
+  K --> L
+  L -- No --> Z
+  L -- Yes --> M{User logged in?}
+  M -- Yes --> N[Submit reason and details]
+  N --> O[Store report as pending]
+  O --> Z
+  M -- No --> P[Redirect to login page]
+  P --> Z
