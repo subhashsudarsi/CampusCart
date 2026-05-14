@@ -1,297 +1,231 @@
-# CampusCart
+# 🛒 CampusCart
 
-![CampusCart](./assets/campuscart-banner.png)
+A peer-to-peer marketplace web app built exclusively for college students — buy and sell second-hand goods with fellow students, no shipping required.
 
-A full-stack student marketplace application enabling campus community members to buy, sell, and exchange items within their educational institution.
+![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?style=flat&logo=node.js&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react&logoColor=black)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=flat&logo=mongodb&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-3-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
 
-**GitHub:** [github.com/subhashsudarsi/campuscart](https://github.com/subhashsudarsi/campuscart)
+---
 
-## 🌟 Features
+## 📸 Overview
 
-- **User Authentication** - Secure login and registration with role-based access (Admin/Student)
-- **Product Marketplace** - Browse, list, and manage items for sale
-- **Admin Dashboard** - Manage products, users, and reports
-- **Messaging System** - Direct communication between buyers and sellers
-- **Product Reporting** - Flag inappropriate or suspicious listings
-- **Responsive Design** - Mobile-friendly UI with Tailwind CSS
-- **Real-time Database** - MongoDB Atlas for reliable data storage
+CampusCart connects students within a campus community to list, browse, and purchase items like textbooks, electronics, furniture, sports gear, and instruments — all arranged as direct on-campus meetups, no third-party shipping needed.
 
-## 🛠 Tech Stack
+### Key Features
 
-### Backend
-- **Runtime**: Node.js 18+
-- **Framework**: Express.js
-- **Database**: MongoDB Atlas
-- **Authentication**: Custom session-based auth
+- 🔐 **Student & Admin accounts** — role-based access with bcrypt-hashed passwords
+- 📦 **Product listings** — post items with title, description, price, category, location, and image
+- 🔍 **Search & filter** — real-time filtering by keyword, category, and price range
+- 💬 **In-app messaging** — buyer-seller chat threads tied to specific listings
+- 📊 **Admin dashboard** — marketplace stats, user list, and per-user listing views
+- 🌱 **Auto-seeded demo data** — demo users, products, and conversations on first startup
 
-### Frontend
-- **Framework**: React 18+
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **Package Manager**: npm
+---
 
-## 📋 Prerequisites
+## 🏗️ Tech Stack
 
-Before you begin, ensure you have:
-- **Node.js**: Version 18 or newer ([Download](https://nodejs.org/))
-- **npm**: Comes with Node.js
-- **MongoDB Atlas Account**: Free tier available at [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
-- **Git**: For version control
+| Layer | Technology |
+|---|---|
+| Frontend | React 18, Vite 5, Tailwind CSS 3, React Router 6 |
+| Backend | Node.js 18+, Express 4 |
+| Database | MongoDB Atlas (Mongoose ODM) |
+| Auth | bcryptjs (password hashing) |
+| Config | dotenv |
 
-## 🚀 Quick Start
+---
 
-### 1. Clone the Repository
+## 📁 Project Structure
+
+```
+campuscart/
+├── api/                  # Backend — Express REST API
+│   ├── server.js         # Main server file (routes, models, logic)
+│   ├── package.json
+│   └── .env              # Backend environment variables (not committed)
+│
+├── Frontend/             # React SPA
+│   ├── src/
+│   │   ├── components/   # Navbar, Footer, ProductCard, SearchBar, etc.
+│   │   ├── pages/        # Home, Login, ProductDetail, Messaging, etc.
+│   │   └── utils/api.js  # API base URL helper
+│   ├── public/
+│   ├── dist/             # Production build output
+│   └── package.json
+│
+└── index.html            # Built frontend (static hosting root)
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) v18 or higher
+- npm
+- A [MongoDB Atlas](https://www.mongodb.com/atlas) account with a cluster
+
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/subhashsudarsi/campuscart.git
+git clone https://github.com/subhashsudarsi/CampusCart.git
 cd campuscart
 ```
 
-### 2. Set Up MongoDB Atlas
+### 2. Configure the backend
 
-1. Create a free MongoDB Atlas account
-2. Create a cluster (free tier available)
-3. Create a database user with read/write permissions
-4. Get your connection string:
-   - Go to **Cluster** > **Connect** > **Drivers** > **Node.js**
-   - Copy the connection string
-
-### 3. Configure Backend Environment
+Copy the example env file and fill in your MongoDB credentials:
 
 ```bash
 cd api
 cp .env.example .env
 ```
 
-Edit `api/.env` with your MongoDB credentials:
+Edit `api/.env`:
 
 ```env
 PORT=3001
 CORS_ORIGIN=*
-REQUEST_BODY_LIMIT=8mb
-
-# MongoDB Configuration (Atlas)
 MONGO_TYPE=atlas
-MONGO_USER=your_mongo_username
-MONGO_PASS=your_mongo_password
-MONGO_HOST_URI=your-cluster.xxxxx.mongodb.net
+MONGO_USER=your_db_username
+MONGO_PASS=your_db_password
+MONGO_HOST_URI=your-cluster.mongodb.net
 MONGO_DB_NAME=campuscart
 MONGO_AUTH_SRC=admin
 MONGO_REWRITES=true
 MONGO_W=majority
 MONGO_HEARTBEAT_MS=60000
-
-# MongoDB Collections
 MONGO_COLL_CUSTOM_SEQUENCE=customSequence
 ```
 
-### 4. Install and Run Backend
+### 3. Run the backend
 
 ```bash
-cd api
+# From the api/ directory
 npm install
 npm start
 ```
 
-Backend will be available at `http://localhost:3001/api`
+The API will be available at `http://localhost:3001/api`.  
+Health check: `http://localhost:3001/api/health`
 
-Check health: `http://localhost:3001/api/health`
-
-### 5. Configure and Run Frontend (Development)
+### 4. Run the frontend (development)
 
 ```bash
-cd Frontend
+# From the Frontend/ directory
+cd ../Frontend
 npm install
 npm run dev
 ```
 
-Frontend will typically run at `http://localhost:5173`
+Open the URL shown by Vite (usually `http://localhost:5173`).
 
-**Optional**: Edit `Frontend/.env` if backend runs on a different port:
+> **Optional:** Create `Frontend/.env` to point to a non-default API:
+> ```env
+> VITE_API_BASE_URL=http://localhost:3001/api
+> ```
 
-```env
-VITE_API_BASE_URL=http://localhost:3001/api
-```
-
-## 📦 Build for Production
-
-To create a production build of the frontend:
+### 5. Build for production
 
 ```bash
 cd Frontend
 npm run build
 ```
 
-Output will be in `Frontend/dist/`. To use as static files at project root:
-
-```bash
-cp -r Frontend/dist/* ./
-```
-
-## 🔐 Demo Credentials
-
-The API automatically seeds demo data when collections are empty:
-
-| Role    | Email              | Password   |
-|---------|-------------------|-----------|
-| Admin   | admin@campuscart.com | password123 |
-| Student | raj@student.com   | password123 |
-
-⚠️ **Note**: These are demo credentials only. Change in production.
-
-## 📁 Project Structure
-
-```
-campuscart/
-├── api/                          # Express backend
-│   ├── src/
-│   │   ├── middleware/          # Auth, CORS, error handling
-│   │   ├── models/              # Database schemas
-│   │   ├── routes/              # API endpoints
-│   │   └── utils/               # Helper functions
-│   ├── server.js                # Entry point
-│   ├── .env.example             # Environment template
-│   └── package.json             # Dependencies
-│
-├── Frontend/                     # React + Vite app
-│   ├── src/
-│   │   ├── components/          # React components
-│   │   ├── pages/               # Page components
-│   │   ├── hooks/               # Custom React hooks
-│   │   └── utils/               # Client utilities
-│   ├── public/                  # Static assets
-│   ├── vite.config.js           # Vite configuration
-│   └── package.json             # Dependencies
-│
-├── docs/                        # Documentation
-├── AGILE METHODOLOGIES/         # System design documents
-├── CampusCart_System_Design.pdf # Architecture documentation
-├── DATABASE_SETUP.md            # Database configuration guide
-└── SYSTEM_DESIGN.md             # Technical specifications
-```
-
-## 🔌 API Endpoints
-
-### Authentication
-```
-POST   /api/register              # Create new account
-POST   /api/login                 # Login user
-GET    /api/logout                # Logout session
-```
-
-### Products
-```
-GET    /api/products              # List all products
-POST   /api/products              # Create product (auth required)
-GET    /api/products/:id          # Get product details
-DELETE /api/products/:id          # Delete product (admin only)
-POST   /api/products/:id/report   # Report product
-```
-
-### System
-```
-GET    /api/health                # Health check
-POST   /api/seed-products         # Seed demo data
-POST   /api/reset-passwords       # Reset demo passwords
-```
-
-## ⚙️ Configuration
-
-### Environment Variables
-
-**Backend** (`api/.env`):
-- `PORT` - Server port (default: 3001)
-- `CORS_ORIGIN` - Allowed CORS origins
-- `MONGO_*` - MongoDB connection details
-
-**Frontend** (`Frontend/.env`):
-- `VITE_API_BASE_URL` - Backend API URL
-
-## 🐛 Troubleshooting
-
-### MongoDB Authentication Error
-```
-Error: bad auth : Authentication failed
-```
-
-**Solution**:
-1. Verify MongoDB username and password in `api/.env`
-2. Ensure the user exists in MongoDB Atlas
-3. Check that user has `readWrite` role on the database
-
-### Cannot Connect to MongoDB Atlas
-```
-Error: getaddrinfo ENOTFOUND cluster0.xxxx.mongodb.net
-```
-
-**Solution**:
-1. Add your IP address to MongoDB Atlas Network Access:
-   - Go to Security > Network Access
-   - Add your IP or allow `0.0.0.0/0` for testing only
-2. Verify cluster is running
-
-### Frontend Cannot Reach Backend
-```
-Error: Failed to fetch from API
-```
-
-**Solution**:
-1. Ensure backend is running on `http://localhost:3001`
-2. Check `VITE_API_BASE_URL` in `Frontend/.env`
-3. Open browser DevTools to check network errors
-4. Verify CORS is enabled (`CORS_ORIGIN=*` in `api/.env`)
-
-### Port Already in Use
-```
-Error: EADDRINUSE: address already in use :::3001
-```
-
-**Solution**:
-```bash
-# Linux/Mac: Find and kill process
-lsof -ti:3001 | xargs kill -9
-
-# Windows: Use Task Manager or:
-netstat -ano | findstr :3001
-taskkill /PID <PID> /F
-```
-
-## 📚 Documentation
-
-- **[System Design](./SYSTEM_DESIGN.md)** - Architecture and design decisions
-- **[Database Setup](./DATABASE_SETUP.md)** - MongoDB configuration
-- **[System Architecture PDF](./CampusCart_System_Design.pdf)** - Visual architecture
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is open source and available under the MIT License.
-
-## 👤 Author
-
-**Subhash Sudarsi**
-- GitHub: [@subhashsudarsi](https://github.com/subhashsudarsi)
-- Email: contact@subhashsudarsi.dev
-
-## 🙏 Acknowledgments
-
-- MongoDB Atlas for reliable database hosting
-- React and Vite communities for excellent tooling
-- Tailwind CSS for utility-first styling
-
-## 📞 Support
-
-For issues, questions, or suggestions:
-- Open an [Issue](https://github.com/subhashsudarsi/campuscart/issues)
-- Create a [Discussion](https://github.com/subhashsudarsi/campuscart/discussions)
+The production bundle is output to `Frontend/dist`. Copy its contents to the project root to update the static files served from `index.html`.
 
 ---
 
-**Happy selling! 🛒**
+## 🔑 Demo Credentials
+
+The app auto-seeds demo users and sample listings when MongoDB collections are empty on first startup.
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@campuscart.com | password123 |
+| Student | raj@student.com | password123 |
+| Student | priya@student.com | password123 |
+| Student | arjun@student.com | password123 |
+
+> ⚠️ Change these credentials before any public deployment.
+
+---
+
+## 🌐 API Reference
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/health` | Database connectivity check |
+| GET | `/api/products` | List all available products |
+| GET | `/api/products/:id` | Get a single product by ID |
+| POST | `/api/products` | Create a new listing |
+| POST | `/api/login` | Authenticate a user |
+| POST | `/api/register` | Register a new user |
+| GET | `/api/users` | List all users (admin) |
+| GET | `/api/users/count` | Get total user count |
+| GET | `/api/messages/conversations?userId=` | Get all conversations for a user |
+| POST | `/api/messages/send` | Send a message |
+| DELETE | `/api/messages/conversations/:id?userId=` | Delete a conversation |
+| POST | `/api/seed-products` | Force-insert demo products |
+| POST | `/api/reset-passwords` | Reset all passwords to `password123` |
+
+---
+
+## 🧭 Pages & Routing
+
+| Route | Access | Description |
+|---|---|---|
+| `/` | Public | Homepage with product grid, search, and filters |
+| `/login` | Public | Login and registration |
+| `/product/:id` | Public | Product detail — view listing, message seller |
+| `/post-listing` | Student + Admin | Create a new listing |
+| `/messages` | Student only | Messaging inbox and conversation threads |
+| `/profile` | Authenticated | View and edit user profile |
+| `/admin` | Admin only | Dashboard with stats, users, and listings |
+
+---
+
+## 🗃️ Database Schema
+
+CampusCart uses five MongoDB collections:
+
+- **users** — id, name, email, password (hashed), role, timestamps
+- **products** — id, title, description, price, category, sellerId, sellerName, location, image, status, timestamps
+- **conversations** — id, participantIds, productId, productTitle, lastMessageAt, timestamps
+- **messages** — id, conversationId, senderId, receiverId, text, timestamps
+- **customSequence** — key, value (atomic auto-increment counters for each collection)
+
+---
+
+## 🛠️ Troubleshooting
+
+**Authentication failed connecting to Atlas**
+- Verify `MONGO_USER` and `MONGO_PASS` in `api/.env`
+- Confirm the database user has `readWrite` on the configured database in Atlas
+
+**Cannot connect to Atlas**
+- Add your server IP under Atlas → Network Access
+- Use `0.0.0.0/0` temporarily for testing (not recommended for production)
+
+**Frontend can't reach the API**
+- Confirm the backend is running on port 3001
+- Check `VITE_API_BASE_URL` in `Frontend/.env`
+- Look for CORS errors in the browser console and set `CORS_ORIGIN` accordingly
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] JWT-based authentication with secure HttpOnly cookies
+- [ ] Email verification and password reset
+- [ ] Real-time messaging with WebSockets
+- [ ] Payment gateway integration (Razorpay / UPI)
+- [ ] Seller ratings and reviews
+- [ ] Direct image file upload (multipart/form-data)
+- [ ] Mobile app (React Native)
+- [ ] Admin moderation controls (remove listings, suspend users)
+
+---
